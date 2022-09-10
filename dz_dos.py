@@ -22,3 +22,14 @@ else:
             answer += int(i)
 
 print (answer)
+
+# Задание 2 Программа, которая принимает на вход число N и выдает набор произведений чисел от 1 до N.
+number = int(input('Введите число:'))
+mult = 1
+k = 0
+lst = []
+while k < number:
+    k += 1
+    mult *= k
+    lst.append(mult)
+print (lst)
