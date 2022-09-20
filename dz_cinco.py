@@ -1,6 +1,10 @@
 # Задача 1. Напишите программу, удаляющую из текста все слова, содержащие ""абв"".
-
-line = 'Итс абвтайм ту навести суетуабв'
+fi = open('some_file.txt', 'w')
+line = fi.write('Итс абвтайм ту навести суетуабв')
+fi.close()
+fi = open('some_file.txt', 'r')
+line = fi.read()
+fi.close()
 result = ' '.join(filter(lambda x: 'абв' not in x, line.split()))
 print(result)
 
@@ -26,11 +30,16 @@ def choose_player():
 def player1_turn(candies):
     take = 29
     while take > 28 or take < 1:
-        take = int(input('Player 1, Take your candies: '))
-        if take > 28 or take < 1:
-            print('Please take from 1 to 28 candies: ')
-        if take > candies:
-            print('We do not have so many candies!')
+        take = input('Player 1, Take your candies: ')
+        if take.isdigit():
+            take = int(take)
+            if take > 28 or take < 1:
+                print('Please take from 1 to 28 candies: ')
+            if take > candies:
+                print('We do not have so many candies!')
+                take = 29
+        else:
+            print('Invalid symbols. Please enter a number from 1 to 28.')
             take = 29
     return take
         
@@ -38,11 +47,16 @@ def player1_turn(candies):
 def player2_turn(candies):
     take = 29
     while take > 28 or take < 1:
-        take = int(input('Player 2, Take your candies: '))
-        if take > 28 or take < 1:
-            print('Please take from 1 to 28 candies: ')
-        if take > candies:
-            print('We do not have so many candies!')
+        take = input('Player 2, Take your candies: ')
+        if take.isdigit():
+            take = int(take)
+            if take > 28 or take < 1:
+                print('Please take from 1 to 28 candies: ')
+            if take > candies:
+                print('We do not have so many candies!')
+                take = 29
+        else:
+            print('Invalid symbols. Please enter a number from 1 to 28.')
             take = 29
     return take
     
@@ -78,11 +92,13 @@ print(actual_game())
 
 # Задача 2 (а, b). Добавьте игру против бота. Достаточно сделать так, чтобы бот не брал конфет больше положенного или больше чем имеется в куче.b) 
 # Подумайте как наделить бота ""интеллектом"".
+import random
+
 
 def choose_player():
     p = random.randint(0,1)
     if p == 0:
-        print('Первым ходит игрок 1')
+        print('Первым ходит игрок')
     else:
         print('Первым ходит бот')
     return p
@@ -91,11 +107,16 @@ def choose_player():
 def player_turn(candies):
     take = 29
     while take > 28 or take < 1:
-        take = int(input('Player, Take your candies: '))
-        if take > 28 or take < 1:
-            print('Please take from 1 to 28 candies: ')
-        if take > candies:
-            print('We do not have so many candies!')
+        take = input('Player, take your candies: ')
+        if take.isdigit():
+            take = int(take)
+            if take > 28 or take < 1:
+                print('Please take from 1 to 28 candies: ')
+            if take > candies:
+                print('We do not have so many candies!')
+                take = 29
+        else:
+            print('Invalid symbols. Please enter a number from 1 to 28.')
             take = 29
     return take
 
@@ -107,7 +128,7 @@ def bot_turn(candies):
 
 
 def actual_game():
-    candies = 100
+    candies = 2021
     count = 1
     turn = choose_player()
     eternity = True
@@ -134,3 +155,67 @@ def actual_game():
         turn += 1
 
 print(actual_game())
+
+# Задание 3. Создайте программу для игры в ""Крестики-нолики""
+
+def board():
+    print('  {}  |  {}  | {} '.format('X', '0', 'X'))
+    print('----------------')
+    print('  {}  |  {}  | {} '.format('X', '0', 'X'))
+    print('----------------')
+    print('  {}  |  {}  | {}  '.format('X', '0', 'X'))
+board()
+
+# Задание 4. Реализуйте RLE алгоритм: реализуйте модуль сжатия и восстановления данных.
+
+# Запишем строку с новый файл
+
+with open('dat_myfile.txt', 'w') as file:
+    file.write('aaabbccxc')
+# А теперь прочитаем файл
+with open('dat_myfile.txt', 'r') as file:
+    string = file.read()
+
+
+def comp(data):
+    count = 1
+    i = 0
+    get = ''
+    if data == '':
+        return ''
+    for i in range(len(data) - 1):
+        if data[i+1] == data[i]:
+            count += 1
+        else:
+            get += str(count) + data[i]
+            count = 1
+        data[i] == data[i-1]
+    get += str(count) + data[-1]
+
+    return get
+print(comp(string))
+
+# Запишем в файл сжатые данные
+with open('dat_myfile.txt', 'a') as file:
+    file.write(f'{comp(string)}\n')
+
+# Прочитаем сжатые данные 
+with open('dat_myfile.txt', 'r') as file:
+    string = file.read()
+
+def decomp(data):
+    count = 1
+    get = ''
+    if data == '':
+        return ''
+    for i in range(len(data) - 1):
+        if data[i].isdigit():
+            for item in range(0,int(data[i])):
+                get += data[i+1]
+                count += 1
+    return get
+print(decomp(string))
+
+# Запишем в файл восстановленные данные
+with open('dat_myfile.txt', 'a') as file:
+    file.write(f'{decomp(string)}\n')
