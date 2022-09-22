@@ -110,6 +110,13 @@ for i, item in enumerate(elements): # enumerate
         res += item
 print(res)
 
+# Ещё одно решение этой задачи
+elements = list(input('Введите несколько чисел: ').split())
+lst = list(map(lambda x: x[1], filter(lambda x: x[0] % 2 == 1, enumerate(elements)))) # lambda, filter, map
+print (lst)
+new_lst = list(map(lambda x: int(x), lst))
+print(sum(new_lst))
+
 # Ещё одно решение этой же задачи. Оно большое и вряд ли оптимизированное, но я попыталась его выполнить ради использования zip,
 # тк больше применению zip не нашла в других задачах.
 
