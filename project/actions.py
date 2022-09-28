@@ -25,7 +25,6 @@ def export_data(data):
 
 
 def export_with_commas(data):
-    lst = []
     with open('project\my_file.txt', 'r', encoding='utf-8') as mf:
         lst = mf.readlines()
     s = ''
