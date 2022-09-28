@@ -78,7 +78,7 @@ f_new = open('my_file2.txt', 'r')
 read = f_new.read()
 f_new.close()
 
-f_old = open ('my_file.txt', 'r') #Открываем файл из предыдущего задания
+f_old = open ('my_file.txt', 'r')
 read1 = f_old.read()
 f_old.close()
 
