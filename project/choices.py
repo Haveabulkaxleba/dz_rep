@@ -25,7 +25,7 @@ Name: ''')
             print('Data has been added')
             flag = True
         elif option == '3':
-            file = input('Specify the name of the file from which to import: ')
+            file = input('Specify the name of your file from which to import (note that this file should be added to the project folder beforehand): ')
             actions.import_data(file)
             print('Data has been imported')
             flag = True

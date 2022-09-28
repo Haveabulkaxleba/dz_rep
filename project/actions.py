@@ -6,7 +6,7 @@ def view_data():
 
 def add_data(data):
     with open('project\my_file.txt', 'a', encoding='utf-8') as mf:
-        write = mf.write(data)
+        write = mf.write(f'\n{data}')
 
 
 def import_data(data):
@@ -14,7 +14,7 @@ def import_data(data):
         read = mf.read()
         new = read.replace(', ', '\n')
     with open('project\my_file.txt', 'a', encoding='utf-8') as mf:
-        write = mf.write(f'{new}\n')
+        write = mf.write(f'\n{new}\n')
 
 
 def export_data(data):
@@ -25,11 +25,14 @@ def export_data(data):
 
 
 def export_with_commas(data):
+    lst = []
     with open('project\my_file.txt', 'r', encoding='utf-8') as mf:
-        read = mf.read()
-    lst = read.split()
-    string = ', '.join(lst[0:3])
-    str1 = ' '.join(lst[3:5])
-    res = f'{string}, {str1}'
-    with open(f'project\{data}', 'a', encoding='utf-8') as mf:
-        write = mf.write(f'{res}\n')
+        lst = mf.readlines()
+    s = ''
+    for i, elem in enumerate(lst):
+        if elem != '\n':
+            s += elem.strip()+', '
+        else:
+            with open(f'project\{data}', 'a', encoding='utf-8') as mf:
+                mf.write(s + '\n')
+            s = ''
